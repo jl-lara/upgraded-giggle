@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapStar - EcoRutas Tijuana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            accent: '#10b981', // Emerald
+                            secondary: '#f59e0b', // Amber/Orange
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2050&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones sutiles */
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="compass" class="h-8 w-8 text-brand-accent"></i>
+                    <span class="font-display font-bold text-2xl tracking-tight text-white">MapStar</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Características</a>
+                        <a href="#tijuana" class="hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Rutas Tijuana</a>
+                        <a href="#community" class="hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Comunidad</a>
+                        <a href="#" class="bg-brand-accent hover:bg-emerald-500 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-emerald-900/50">
+                            Descargar App
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-gray-300 hover:text-white p-2">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed">
+        <!-- Overlay decorativo tipo mapa topográfico (SVG) -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'0 0 2000 2000\'%3E%3Cpath d=\'M0 0h100v100H0z\' fill=\'none\'/%3E%3Cpath d=\'M10 10c10 20 20 10 30 20s20 30 40 10\' stroke=\'white\' fill=\'none\'/%3E%3C/svg%3E'); background-size: 200px;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+            <div class="fade-in-up">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-secondary/20 text-brand-secondary border border-brand-secondary/50 text-xs font-bold tracking-wider uppercase mb-6">
+                    Nueva en Tijuana
+                </span>
+                <h1 class="text-5xl md:text-7xl font-display font-extrabold text-white mb-6 leading-tight">
+                    Explora el lado <span class="text-brand-accent text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Verde</span> de la Ciudad.
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-300">
+                    Descubre senderos seguros, rutas ecológicas y atajos panorámicos en Tijuana. Muévete inteligente, respira mejor.
+                </p>
+                
+                <div class="mt-10 flex justify-center gap-4 flex-col sm:flex-row">
+                    <a href="/map" class="group flex items-center justify-center gap-2 bg-brand-accent hover:bg-emerald-400 text-brand-dark font-bold py-4 px-8 rounded-full text-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                        <i data-lucide="map" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        Explorar Mapa
+                    </a>
+                    <button class="flex items-center justify-center gap-2 bg-transparent border-2 border-slate-600 hover:border-white text-white font-semibold py-4 px-8 rounded-full text-lg transition-all hover:bg-white/5">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                        Ver Demo
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4 border-t border-white/10 pt-8">
+                    <div>
+                        <div class="text-3xl font-bold text-white">150+</div>
+                        <div class="text-sm text-slate-400">Km de EcoRutas</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white">12k</div>
+                        <div class="text-sm text-slate-400">Usuarios en TJ</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white">4.9</div>
+                        <div class="text-sm text-slate-400">Rating Seguridad</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white">CO₂</div>
+                        <div class="text-sm text-slate-400">Rutas Bajas en Carbono</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flecha de scroll -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="text-slate-400 w-8 h-8"></i>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Blobs decorativos de fondo -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-accent font-bold tracking-wide uppercase text-sm">Tu Guía Inteligente</h2>
+                <h3 class="mt-2 text-3xl md:text-4xl font-display font-bold text-white">Más que un simple mapa</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-3xl hover:bg-slate-800 hover:border-brand-accent/50 transition duration-300 group">
+                    <div class="w-14 h-14 bg-emerald-900/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="leaf" class="text-brand-accent w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Eco-Conciencia</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Priorizamos rutas con mayor vegetación y menor índice de contaminación del aire en tiempo real.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-3xl hover:bg-slate-800 hover:border-brand-secondary/50 transition duration-300 group">
+                    <div class="w-14 h-14 bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-check" class="text-brand-secondary w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Rutas Seguras</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Sistema de alertas comunitarias y rutas verificadas e iluminadas para caminatas seguras por Tijuana.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-3xl hover:bg-slate-800 hover:border-blue-400/50 transition duration-300 group">
+                    <div class="w-14 h-14 bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="mountain" class="text-blue-400 w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Aventura Local</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Descubre senderos ocultos en Cerro Colorado y miradores secretos en Playas que solo los locales conocen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tijuana Showcase Section -->
+    <section id="tijuana" class="py-24 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <div class="lg:w-1/2">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700 group">
+                        <!-- Imagen representativa -->
+                        <img src="https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1974&auto=format&fit=crop" alt="Vista de sendero en naturaleza" class="w-full h-[500px] object-cover transition duration-700 group-hover:scale-110">
+                        
+                        <!-- Floating UI Element (Simulación de App) -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-white/10 flex items-center gap-4">
+                            <div class="bg-brand-accent p-3 rounded-lg">
+                                <i data-lucide="navigation" class="text-brand-dark"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-bold">Destino Actual</p>
+                                <p class="text-white font-bold">Sendero Cerro Colorado, TJ</p>
+                            </div>
+                            <div class="ml-auto text-brand-accent font-bold text-sm">2.4 km</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white leading-tight">
+                        Redescubre tu ciudad. <br>
+                        <span class="text-slate-400">Paso a paso.</span>
+                    </h2>
+                    <p class="text-lg text-slate-300">
+                        Tijuana es dinámica, pero también tiene sus oasis. MapStar utiliza datos topográficos y reportes de usuarios para crear una red de movilidad que prioriza tu bienestar y el medio ambiente.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-slate-200">
+                            <i data-lucide="check-circle-2" class="text-brand-accent"></i>
+                            Conexiones seguras entre Playas y Centro.
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-200">
+                            <i data-lucide="check-circle-2" class="text-brand-accent"></i>
+                            Alertas de calidad del aire en Zona Río.
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-200">
+                            <i data-lucide="check-circle-2" class="text-brand-accent"></i>
+                            Marcadores de puntos de hidratación y descanso.
+                        </li>
+                    </ul>
+
+                    <a href="#" class="inline-flex items-center gap-2 text-brand-accent font-bold hover:text-white transition-colors">
+                        Ver mapa interactivo <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Footer -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-900 to-slate-900"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">¿Listo para la aventura?</h2>
+            <p class="text-xl text-emerald-100 mb-10">Únete a miles de tijuanenses que ya están cambiando la forma de explorar su ciudad.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold py-4 px-10 rounded-full shadow-xl transition-transform hover:-translate-y-1">
+                    Descargar para iOS
+                </button>
+                <button class="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 font-bold py-4 px-10 rounded-full transition-transform hover:-translate-y-1">
+                    Descargar para Android
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark border-t border-slate-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="compass" class="text-slate-500 w-6 h-6"></i>
+                <span class="font-bold text-slate-300">MapStar TJ</span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                &copy; 2024 MapStar Technologies. Diseñado con amor en Baja.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-brand-accent"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-accent"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para inicializar iconos -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
