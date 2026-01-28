@@ -3,8 +3,8 @@ import time
 
 app = Flask(__name__)
 
-# Base de datos en memoria (Lista de diccionarios)
-puntos_guardados = []
+# Base de datos en memoria
+datos_guardados = []
 
 @app.route('/')
 def home():
@@ -14,35 +14,50 @@ def home():
 def mapa():
     return render_template('map.html')
 
-@app.route('/guardar_punto', methods=['POST'])
-def guardar_punto():
+@app.route('/guardar_dato', methods=['POST'])
+def guardar_dato():
     data = request.json
-    lat = data.get('lat')
-    lng = data.get('lng')
+    tipo = data.get('tipo', 'punto')
     
-    time.sleep(1.0) # Latencia simulada para ver el spinner
+    time.sleep(1.0) # Simular carga
     
-    # Crear nombre amigable basado en el ID (Simulación de geocoding inverso)
-    punto_id = len(puntos_guardados) + 1
-    nombre = f"Punto de interés #{punto_id}"
+    # CORRECCIÓN DE LÓGICA: Numeración Independiente
+    # Contamos cuántos items de este mismo tipo existen ya
+    conteo_tipo = len([d for d in datos_guardados if d['tipo'] == tipo]) + 1
     
-    nuevo_punto = {
-        'id': punto_id,
-        'lat': lat,
-        'lng': lng,
-        'nombre': nombre,
-        'fecha': time.strftime("%H:%M")
-    }
-    puntos_guardados.append(nuevo_punto)
+    # ID único global para sistema (no visible al usuario)
+    item_id = len(datos_guardados) + 1
     
-    print(f"📍 Guardado: {nombre}")
+    if tipo == 'ruta':
+        nombre = f"EcoRuta #{conteo_tipo}" # Ej: EcoRuta #1
+        nuevo_item = {
+            'id': item_id,
+            'tipo': 'ruta',
+            'nombre': nombre,
+            'origen': data.get('origen'),
+            'destino': data.get('destino'),
+            'distancia': data.get('distancia'),
+            'fecha': time.strftime("%H:%M")
+        }
+    else:
+        nombre = f"Punto de interés #{conteo_tipo}" # Ej: Punto de interés #1
+        nuevo_item = {
+            'id': item_id,
+            'tipo': 'punto',
+            'nombre': nombre,
+            'lat': data.get('lat'),
+            'lng': data.get('lng'),
+            'fecha': time.strftime("%H:%M")
+        }
+        
+    datos_guardados.append(nuevo_item)
+    print(f"📍 Guardado ({tipo}): {nombre}")
     
-    return jsonify({"status": "success", "punto": nuevo_punto})
+    return jsonify({"status": "success", "item": nuevo_item})
 
-# NUEVO: Endpoint para poblar la lista al iniciar
-@app.route('/obtener_puntos', methods=['GET'])
-def obtener_puntos():
-    return jsonify(puntos_guardados)
+@app.route('/obtener_datos', methods=['GET'])
+def obtener_datos():
+    return jsonify(datos_guardados)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
